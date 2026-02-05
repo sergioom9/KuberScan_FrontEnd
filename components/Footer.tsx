@@ -1,4 +1,4 @@
-
+import logo  from "../assets/logo.png";
 
 const Footer = () => {
     return (
@@ -7,7 +7,7 @@ const Footer = () => {
             <div class="footer-column">
                 <div class="logo" style="margin-bottom: 20px;">
                     <div class="logo-icon">
-                        <img class="logo-icon" src="https://i.ibb.co/yK42BzN/Chat-GPT-Image-4-feb-2026-12-06-17.png" />
+                        <img class="logo-icon" src={logo} />
                     </div>
                     KuberScan
                 </div>

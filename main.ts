@@ -1,30 +1,82 @@
 import { App, staticFiles } from "fresh";
-import { define, type State } from "./utils.ts";
+import { createJWT } from "./utils.ts";
+import { checkAuth } from "./utils.ts";
+import dotenv from "dotenv";
 
-export const app = new App<State>();
+export const app = new App();
 
-app.use(staticFiles());
+dotenv.config();
+const EMAIL = Deno.env.get("EMAIL");
+const PASSWORD = Deno.env.get("PASSWORD");
 
-// Pass a shared value from a middleware
-app.use(async (ctx) => {
-  ctx.state.shared = "hello";
-  return await ctx.next();
+//app.use(staticFiles());
+
+app.post("/api/login", async (ctx) => {
+  try {
+    const form = await ctx.req.formData();
+
+    const email = form.get("email") as string;
+    const password = form.get("password") as string;
+
+    if (!email || !password) {
+      return new Response("", {
+        status: 303,
+        headers: { 
+          Location: "/login?error=empty_fields" 
+        },
+      });
+    }
+
+    const success = EMAIL === email && PASSWORD === password;
+    
+    if (!success) {
+      return new Response("", {
+        status: 303,
+        headers: { 
+          Location: "/login?error=invalid_credentials" 
+        },
+      });
+    }
+
+    const auth = createJWT({ email });
+    
+    return new Response("", {
+      status: 303,
+      headers: { 
+        "Set-Cookie": `auth=${auth}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=604800`,
+        Location: "/dashboard" 
+      },
+    });
+  } catch (error) {
+    return new Response("", {
+      status: 303,
+      headers: { 
+        Location: "/login?error=server_error" 
+      },
+    });
+  }
 });
 
-// this is the same as the /api/:name route defined via a file. feel free to delete this!
-app.get("/api2/:name", (ctx) => {
-  const name = ctx.params.name;
-  return new Response(
-    `Hello, ${name.charAt(0).toUpperCase() + name.slice(1)}!`,
-  );
+app.post("/api/logout", async (ctx) => {
+  try {
+    return new Response("", {
+      status: 303,
+      headers: { 
+        "Set-Cookie": `auth=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0`,
+        Location: "/login" 
+      },
+    });
+  } catch (error) {
+    return new Response("", {
+      status: 303,
+      headers: { 
+        Location: "/dashboard" 
+      },
+    });
+  }
 });
 
-// this can also be defined via a file. feel free to delete this!
-const exampleLoggerMiddleware = define.middleware((ctx) => {
-  console.log(`${ctx.req.method} ${ctx.req.url}`);
-  return ctx.next();
-});
-app.use(exampleLoggerMiddleware);
+//app.use("/(me)", checkAuth);
+//app.use("/(main)", alreadylogged);
 
-// Include file-system based routes here
 app.fsRoutes();

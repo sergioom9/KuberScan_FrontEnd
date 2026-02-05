@@ -1,5 +1,6 @@
-import Footer from "./Footer.tsx";
-import Header from "./Header.tsx";
+import CVE from "../assets/CVE.png";
+import discord from "../assets/discord.jpg";
+import telegram from "../assets/telegram.jpg";
 
 const Index = () => {
   return (
@@ -105,7 +106,7 @@ const Index = () => {
           </div>
           <img
             class="cveimagen"
-            src="https://i.ibb.co/ycr9FVLk/CVE-2.png"
+            src={CVE}
             alt="CVE"
           />
         </div>
@@ -117,13 +118,13 @@ const Index = () => {
           <div style="margin:20px">
             <img
               class="logo-icon2"
-              src="https://img.freepik.com/free-psd/3d-rendering-social-media-icon_23-2151413525.jpg"
+              src={discord}
             />
           </div>
           <div style="margin:20px">
             <img
               class="logo-icon2"
-              src="https://img.freepik.com/free-psd/3d-rendering-social-media-icon_23-2151413511.jpg"
+              src={telegram}
             />
           </div>
         </div>
