@@ -9,7 +9,7 @@ dotenv.config();
 const EMAIL = Deno.env.get("EMAIL");
 const PASSWORD = Deno.env.get("PASSWORD");
 
-//app.use(staticFiles());
+app.use(staticFiles());
 
 app.post("/api/login", async (ctx) => {
   try {
