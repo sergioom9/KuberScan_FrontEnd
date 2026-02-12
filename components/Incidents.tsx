@@ -9,12 +9,12 @@ type Incident = {
   lastSeen: string,
   severity: string,
   alertCount: number,
-  status: "open" | "quarantined" | "resolved"
+  status: "open" | "quarantined" | "deleted"
 }
 
 
 const fetchIncidents = async () => {
-    const response = await fetch('https://dynamicalerts.sergioom9.deno.net/incidents');
+    const response = await fetch('https://dynamicalerts.sergioom9.deno.net/data/incidents');
     const data = undefined; //await response.json();
     return data;
 }
@@ -30,13 +30,25 @@ function Incidents() {
         };
         fetchAndSetIncidents();
     }, []);
+    const groupedIncidents = Object.values(
+        incidents.reduce((acc, incident) => {
+    if (!acc[incident.pod]) {
+      acc[incident.pod] = incident;
+    }
+    return acc;
+  }, {} as Record<string, typeof incidents[0]>)
+);
 
   return (
-    <div>
-        <h5>Total Incidents {incidents.length}</h5>
-        {incidents.map((incident) => (
-            <IncidentComponent data={incident} />
+    <div style="margin-top:90px; margin-inline:30px">
+      <p class="alerts-info">Incidents are shown grouped by POD by latest one</p>
+        <div class="notifications-container" >
+        <div class="notifications-header">
+        {groupedIncidents.map((elem:Incident) => (
+            <IncidentComponent data={elem} />
         ))}
+        </div>
+        </div>
     </div>
   );
 }

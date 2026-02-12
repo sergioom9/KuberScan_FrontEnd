@@ -1,5 +1,6 @@
 
 type IncidentProps = {
+    data:{
     id: string,
     pod: string,
     namespace: string,
@@ -7,21 +8,25 @@ type IncidentProps = {
     lastSeen: string,
     severity: string,
     alertCount: number,
-    status: "open" | "quarantined" | "resolved"
+    status: "open" | "quarantined" | "deleted"
+    }
 }
 
 const IncidentComponent = (data: IncidentProps) => {
+    const b64id=btoa(data.data.pod)
     return (
-        <div>
-            <h3>{data.id}</h3>
-            <p>Pod: {data.pod}</p>
-            <p>Namespace: {data.namespace}</p>
-            <p>First Seen: {data.firstSeen}</p>
-            <p>Last Seen: {data.lastSeen}</p>
-            <p>Severity: {data.severity}</p>
-            <p>Alert Count: {data.alertCount}</p>
-            <p>Status: {data.status}</p>
-        </div>
+            <a href={`/incident/${b64id}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <div class="notification-item">
+            <h3>{data.data.id}</h3>
+            <p><span style="color:red">Pod: </span></p><p>{data.data.pod}</p>
+            <p><span style="color:red">Namespace: </span></p><p>{data.data.namespace}</p>
+            <p><span style="color:red">First Seen: </span></p><p>{data.data.firstSeen}</p>
+            <p><span style="color:red">Last Seen: </span></p><p>{data.data.lastSeen}</p>
+            <p><span style="color:red">Severity: </span></p><p>{data.data.severity}</p>
+            <p><span style="color:red">Alert Count: </span></p><p>{data.data.alertCount}</p>
+            <p><span style="color:red">Status: </span></p><p>{data.data.status}</p>
+            </div>
+            </a>
     );
 }
 export default IncidentComponent;

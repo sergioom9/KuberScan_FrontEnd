@@ -18,37 +18,32 @@ type Alert = {
 
 
 const fetchAlerts = async () => {
+    const pathParts = globalThis.location.pathname.split("/");
+    const id = atob(pathParts[2])
     const response = await fetch('https://dynamicalerts.sergioom9.deno.net/data/alerts');
     const data = await response.json();
-    console.log(data)
-    return data;
+    const filteredData = data.filter((elem: Alert) => elem.podname === id);
+    return filteredData;
 }
 
 
-function Alerts() {
+function GroupAlerts() {
     const [alerts, setAlerts] = useState<Alert[]>([]);
-
+    const [podname,setPodname] = useState<string>("")
     useEffect(() => {
         const fetchAndSetAlerts = async () => {
             const alerts = await fetchAlerts();
             setAlerts(alerts);
+            setPodname(alerts[0].podname)
         };
         fetchAndSetAlerts();
     }, []);
-    const groupedAlerts = Object.values(
-        alerts.reduce((acc, alert) => {
-    if (!acc[alert.podname]) {
-      acc[alert.podname] = alert;
-    }
-    return acc;
-  }, {} as Record<string, typeof alerts[0]>)
-);
   return (
-    <div style="margin-top:90px; margin-inline:30px">
-      <p class="alerts-info">Alerts are shown grouped by POD by latest one</p>
+    <div style="margin-top:100px;margin-inline:30px">
+    <p class="alerts-info">POD : {podname}</p>
         <div class="notifications-container" >
         <div class="notifications-header">
-        {groupedAlerts.map((alert) => (
+        {alerts.map((alert) => (
             <AlertComponent data={alert} />
         ))}
         </div>
@@ -56,4 +51,4 @@ function Alerts() {
     </div>
   );
 }
-export default Alerts;
+export default GroupAlerts;
