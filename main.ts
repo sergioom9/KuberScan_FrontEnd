@@ -134,7 +134,7 @@ app.post("/api/static/check", async (ctx) => {
     const scanID = form.scanID
     if (!scanID) {
       return new Response("", {
-        status: 303,
+        status: 404,
         headers: {
           Location: "/static/check?error=empty_fields",
         },
@@ -144,7 +144,7 @@ app.post("/api/static/check", async (ctx) => {
     const data = await res.json();
     if (!data) {
       return new Response("", {
-        status: 303,
+        status: 404,
         headers: {
           Location: "/static/check?error=server_error",
         },
@@ -162,7 +162,7 @@ app.post("/api/static/check", async (ctx) => {
     );
   } catch (error) {
     return new Response("", {
-      status: 303,
+      status: 404,
       headers: {
         Location: "/static/check?error=server_error",
       },

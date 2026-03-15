@@ -9,11 +9,11 @@ const StaticForm = ({error}: StaticFromProps) => {
   let errorMessage = "";
 
   if (error === "scan_failed") {
-    errorMessage = "Invalid imagem.";
+    errorMessage = "Maybe that image does not exists";
   } else if (error === "empty_fields") {
     errorMessage = "You must fill in all fields.";
-  } else if (error === "server") {
-    errorMessage = "You must be logged in to access that page.";
+  } else if (error === "server_error") {
+    errorMessage = "Server might be down, contact admin!";
   }
   return (
     <>

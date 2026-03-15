@@ -3,12 +3,14 @@ import logo from "../assets/logo.png";
 const Header = () => { 
     return(
         <header>
+        <a href="/" style="text-decoration:none;color:white">
         <div class="logo">
             <div class="logo-icon">
                 <img class="logo-icon" src={logo} />
             </div>
             KuberScan
         </div>
+        </a>
         <nav>
             <a href="/static/scan">Scan Image</a>
             <a href="#features">Information</a>

@@ -28,7 +28,7 @@ const Footer = () => {
             </div>
             <div class="footer-column">
                 <h4>Support</h4>
-                <a href="/help">Help Center</a>
+                <a href="mailto:sseergiioo9@gmail.com">Help Center</a>
             </div>
         </div>
         <div class="footer-bottom">

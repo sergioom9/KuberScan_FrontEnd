@@ -68,16 +68,15 @@ const Index = () => {
             </p>
           </div>
           <div class="feature-item">
-            <h3>Start using your clusters/pods</h3>
+            <h3>Configure your own rules</h3>
             <p>
-              Just enjoy your development, KuberScan will notice you if it
-              detects anomalys
+              Deploy Falco on your clusters and configure your rules for alerts.
             </p>
           </div>
           <div class="feature-item">
             <h3>Real Time protection</h3>
             <p>
-              If KuberScan sees anormal behaviour will auto-quarantine the pod
+              If KuberScan sees anormal behaviour will notify and auto-quarantine the pod
               for security
             </p>
           </div>
@@ -113,7 +112,7 @@ const Index = () => {
       </section>
 
       <section>
-        <h2 class="section-title">Connect to your own webhooks</h2>
+        <h2 class="section-title">Connect to your own webhooks (Soon)</h2>
         <div class="stats-container">
           <div style="margin:20px">
             <img
@@ -131,29 +130,29 @@ const Index = () => {
       </section>
 
       <section>
-        <h2 class="section-title">Our Testimonials</h2>
+        <h2 class="section-title">Our Reviews</h2>
         <div class="testimonials-grid">
           <div class="testimonial-card">
             <div class="testimonial-rating">★★★★★</div>
             <p class="testimonial-text">
               "KuberScan has transformed how we manage our Kubernetes clusters.
-              The real-time alerts and auto-quarantine features are lifesavers!"
+              The real-time alerts and auto-quarantine features are amazing!"
             </p>
             <div class="author-info">
               <h4>Sarah Johnson</h4>
-              <p>Londos, UK</p>
+              <p>London, UK</p>
             </div>
           </div>
           <div class="testimonial-card">
           <div class="testimonial-rating">★★★★★</div>
           <p class="testimonial-text">
             "KuberScan's intuitive interface and powerful features have made
-            managing our clusters effortless."
+            managing our clusters easier."
           </p>
           <div class="testimonial-author">
             <div class="author-info">
-              <h4>Jorge Vazquez</h4>
-              <p>Galicia, España</p>
+              <h4>George Paul</h4>
+              <p>Miami, USA</p>
             </div>
           </div>
         </div>
@@ -165,8 +164,8 @@ const Index = () => {
           </p>
           <div class="testimonial-author">
             <div class="author-info">
-              <h4>Alvaro Perez</h4>
-              <p>Madrid, España</p>
+              <h4>Nicolas Kane</h4>
+              <p>Manchester, UK</p>
             </div>
           </div>
         </div>

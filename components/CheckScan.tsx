@@ -1,4 +1,5 @@
 import { useState } from "preact/hooks";
+import ErrorBoxIsland from "../islands/ErrorBoxIsland.tsx";
 
 type CheckScanForm = {
   uuid: string | null;
@@ -26,6 +27,7 @@ const CheckScan = ({ uuid }: CheckScanForm) => {
   const effectiveuuid = uuid ?? "";
   const [scanID, setScanID] = useState<string>(effectiveuuid);
   const [result, setResult] = useState<ScanData | null>(null);
+  const [error,setError] = useState<string>("")
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
@@ -36,9 +38,11 @@ const CheckScan = ({ uuid }: CheckScanForm) => {
       },
       body: JSON.stringify({ scanID }),
     });
+    if(!resultdata.ok){
+      setError("Server Error")
+    }
     const data = await resultdata.json();
     setResult(data.data);
-    console.log(result);
   };
 
   return (
@@ -52,6 +56,7 @@ const CheckScan = ({ uuid }: CheckScanForm) => {
           <h3 style="text-align: center; margin-bottom: 30px; font-size: 28px; font-weight: 700; color: #FFFFFF;">
             Check for Scan Results
           </h3>
+          <ErrorBoxIsland message={error} />
 
           <label for="scanID"></label>
           <input
